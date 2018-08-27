@@ -1,0 +1,22 @@
+{
+  "namespace" : "com.example",
+  "type" : "record",
+  "name" : "PickResource",
+  "fields" : [
+    {"name":"id","type":"long", "default":0},
+    {"name":"locnNbr","type":"int","default":0},
+    {"name":"locnBrcd", "type":"string", "default":""},
+    {"name":"itemBrcd", "type":"string","default":""},
+    {"name":"qtyToPick","type":"int","default":0},
+    {"name":"qtyPicked","type":"int","default":0},
+    {"name":"fromContainer","type":"string","default":""},
+    {"name":"toContainer","type":"string","default":""},
+    {"name":"pickType","type":"string","default":""},
+    {"name":"waveNbr","type":"string","default":""},
+    {"name":"orderNbr","type":"string","default":""},
+    {"name":"packageNbr","type":"string","default":""},
+    {"name":"busUnit","type":"string","default":""},
+    {"name":"statCode","type":"int","default":0},
+    {"name":"userId","type":"string","default":""}
+  ]
+}

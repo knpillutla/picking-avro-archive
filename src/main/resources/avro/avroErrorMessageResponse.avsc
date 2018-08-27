@@ -1,0 +1,9 @@
+{
+  "namespace" : "com.example",
+  "type" : "record",
+  "name" : "ErrorResponse",
+  "fields" : [
+    {"name":"responseCode", "type":"int", "default":0.0},
+    {"name":"errorMsg", "type":"string","default":""}
+  ]
+}

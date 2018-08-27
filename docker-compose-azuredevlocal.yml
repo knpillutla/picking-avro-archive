@@ -1,0 +1,14 @@
+##Self Dockerimage on latest build##
+
+version: '3.3'
+services:
+  picking:
+    image: wms/picking:latest
+    build: .
+    ports:
+      - 9093:9093
+      - 8000:8000
+    environment:
+      - JAVA_OPTS=-Xmx512m
+      - SPRING_PROFILES_ACTIVE=azure
+   

@@ -1,0 +1,65 @@
+##Self Dockerimage on latest build##
+
+version: '3.3'
+services:
+  mypostgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - JAVA_OPTS=-Xmx512m
+      - POSTGRES_PASSWORD=postgres
+  zookeeper:
+    depends_on:
+      - mypostgres  
+    image: confluentinc/cp-zookeeper:5.0.0
+    restart: always
+    ports:
+      - 32181:32181
+    environment:
+      - JAVA_OPTS=-Xmx512m
+      - ZOOKEEPER_CLIENT_PORT=32181
+      - ZOOKEEPER_TICK_TIME=2000
+
+      
+  kafka:
+    depends_on:
+      - zookeeper  
+    image: confluentinc/cp-kafka:5.0.0
+    restart: always
+    ports:
+      - 29092:29092
+    environment:
+      - JAVA_OPTS=-Xmx512m
+      - KAFKA_ZOOKEEPER_CONNECT=192.168.1.94:32181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.94:29092
+
+        
+  schema-registry:
+    depends_on:
+      - kafka  
+    image: confluentinc/cp-schema-registry:5.0.0
+    restart: always
+    ports:
+      - 28081:28081
+    environment:
+      - JAVA_OPTS=-Xmx512m
+      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=192.168.1.94:32181
+      - SCHEMA_REGISTRY_HOST_NAME=192.168.1.94
+      - SCHEMA_REGISTRY_LISTENERS=http://192.168.1.94:28081
+
+  picking:
+    depends_on:
+      - schema-registry  
+    image: wmscontainerregistry.azurecr.io/picking:v1
+    ports:
+      - 9093:9093
+      - 8000:8000
+    environment:
+      - JAVA_OPTS=-Xmx512m
+      - SPRING_PROFILES_ACTIVE=azure
+   
+
+      
+   

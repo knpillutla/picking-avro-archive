@@ -1,0 +1,1 @@
+docker-compose -f docker-compose-azure.yml up --build -d
